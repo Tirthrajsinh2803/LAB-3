@@ -1,7 +1,7 @@
 package lab3.game;
 
 public class Board {
-    private char[][] board; // 3x3 board to store 'X', 'O', or ' ' (empty)
+    private final char[][] board; // 3x3 board to store 'X', 'O', or ' ' (empty)
     private static final int SIZE = 3;
 
     // Constructor to initialize an empty board
@@ -54,8 +54,7 @@ public class Board {
         }
         // Check diagonals
         if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark) return true; // Diagonal 1
-        if (board[0][2] == mark && board[1][1] == mark && board[2][0] == mark) return true; // Diagonal 2
-        return false;
+        return board[0][2] == mark && board[1][1] == mark && board[2][0] == mark; // Diagonal 2
     }
 
     // Override toString to display the board
