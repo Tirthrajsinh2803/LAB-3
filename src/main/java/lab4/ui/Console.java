@@ -1,79 +1,64 @@
 package lab4.ui;
 
 import lab4.game.*;
-
 import java.util.Scanner;
 
-/**
- * Helper methods for doing console-based user interaction
- */
 public class Console {
 
+    // ANSI escape codes for colors
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
     public static void println(String message) {
-        System.out.println(message);
+        System.out.println(ANSI_GREEN + message + ANSI_RESET);
     }
 
-    /**
-     * Prompt the user for input using the given promptMessage
-     * @param promptMessage The message to prompt the user with
-     * @return The user's response
-     */
+    public static void printError(String message) {
+        System.out.println(ANSI_RED + message + ANSI_RESET);
+    }
+
     public static String prompt(String promptMessage) {
-        System.out.print(promptMessage);
+        System.out.print(ANSI_GREEN + promptMessage + ANSI_RESET);
         var scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    /**
-     * Display the given game board
-     * @param board A tictactoe game board
-     */
     public static void showBoard(Board board) {
         System.out.print(board);
     }
 
-    /**
-     * Repeatedly prompt the user for a position on which to place their next token.
-     * If they enter an invalid response or an already-taken position they are re-prompted.
-     * @param prompt The prompt to display to the user
-     * @param board The current state of the game board
-     * @return The position selected by the user
-     */
     public static Position promptForPosition(String prompt, Board board) {
-
-
         var scanner = new Scanner(System.in);
         final String helpMessage = "Input must be in the format 'row column', e.g., '1 2' or 't m' for the top middle cell.";
 
-        while ( true ) {
-            System.out.print(prompt);
+        while (true) {
+            System.out.print(ANSI_GREEN + prompt + ANSI_RESET);
             var input = scanner.nextLine().trim();
 
-            if ( input.length() != 3 ) {
-                System.out.println(helpMessage);
+            if (input.length() != 3) {
+                printError(helpMessage);
                 continue;
             }
 
             var parts = input.split(" ");
 
-            if ( parts.length != 2 ) {
-                System.out.println(helpMessage);
+            if (parts.length != 2) {
+                printError(helpMessage);
                 continue;
             }
 
-            // The .from methods may throw if the user entered invalid location text, so we try/catch
             try {
-
                 var pos = new Position(Row.from(parts[0]), Col.from(parts[1]));
 
                 if (board.isOccupiedAt(pos)) {
-                    System.out.println("That position is already taken.");
+                    printError("That position is already taken.");
                     continue;
                 }
 
                 return pos;
-            } catch ( IllegalArgumentException e ) {
-                System.out.println(helpMessage);
+            } catch (IllegalArgumentException e) {
+                printError(helpMessage);
             }
         }
     }
