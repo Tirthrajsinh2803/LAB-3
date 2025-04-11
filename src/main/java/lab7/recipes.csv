@@ -1,0 +1,4 @@
+id,name,description,instructions,servings,prepTime,cookTime,totalTime
+1,Chicken Soup,"Homemade chicken soup","Boil chicken, add vegetables",4,10,30,40
+2,Vegetable Salad,"Fresh garden salad","Mix all vegetables",2,5,0,5
+3,Beef Stew,"Hearty beef stew","Slow cook beef with vegetables",6,20,120,140
