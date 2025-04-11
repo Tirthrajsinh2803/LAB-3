@@ -54,6 +54,6 @@ class MainTest {
         assertEquals(1, recipes.get(1).id());
     }
 
-    // TODO: test the searchRecipes method
+    // TODO: test the searchRecipes method.
 
 }
